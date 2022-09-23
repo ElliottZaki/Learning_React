@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Loading from './Loading'
+// import {Loading} from './Loading' - Lesson 03. This is a destructured method for exporting without a default export. Check Loading.js for more information.
 
-// 01. Firstly this component & getUsers method allows us to store date in a component state via an ajax call.
-// 02. Here we are adding a condition when rendering by creating a 'loading' state.
+// Lesson 01. Firstly this component & getUsers method allows us to store date in a component state via an ajax call.
+// Lesson 02. Here we are adding a condition when rendering by creating a 'loading' state.
 class App extends Component { 
   constructor(props) {
     super(props)
@@ -38,7 +40,9 @@ class App extends Component {
 // We then render the user's email in a p tag below.
 // Finally, we created a line seperating each users information using the <hr /> tag.
 
-// 02  Here we have said if loading is false, implement api data, however, if it is true, then create a string to say "Loading..."
+// 02 Here we have said if loading is false, implement api data, however, if it is true, then create a string to say "Loading..."
+
+// Lesson 03. Here, we have passed are own string as the value for the loading message wihich will overwrite the default string. 
 
   render() {
     return (
@@ -50,7 +54,7 @@ class App extends Component {
               <p>{user.email}</p>
               <hr />
             </div>
-          ) : 'Loading...'}
+          ) : <Loading message = "Alpha, Bravo, Charlie"/>}
           </div>
       );
   }
