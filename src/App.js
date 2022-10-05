@@ -7,12 +7,14 @@ import Loading from './Loading'
 // Lesson 02. Here we are adding a condition when rendering by creating a 'loading' state.
 class App extends Component { 
   constructor(props) {
-    super(props)
+    super(props);
     // state
     this.state = {
       users: [],
       loading: false
     }
+    //  bind - anytime we create a new function we need to bind.
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
 // The getUsers method can be called in the componentDidMount method.
@@ -25,10 +27,16 @@ class App extends Component {
     })
     axios('https://randomuser.me/api/?nat=US&results=5')
     .then(response => this.setState({
-      users: response.data.results,
+      users: [...this.state.users, ...response.data.results],
       loading: false
     })
     );
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.getUsers();
+    console.log('more users loaded');
   }
 
   componentDidMount() {
@@ -53,8 +61,11 @@ class App extends Component {
               <h3>{user.name.first}</h3>
               <p>{user.email}</p>
               <hr />
+              <form onSubmit={this.handleSubmit}>
+                <input type="submit" value="load users" />
+              </form>
             </div>
-          ) : <Loading message = "Alpha, Bravo, Charlie"/>}
+          ) : <Loading message = "Loading, please wait."/>}
           </div>
       );
   }
