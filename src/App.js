@@ -53,17 +53,19 @@ class App extends Component {
 // Lesson 03. Here, we have passed are own string as the value for the loading message wihich will overwrite the default string. 
 
   render() {
+    const { loading, users } = this.state;
     return (
       <div className="App">
-        {! this.state.loading
-          ? this.state.users.map(user => 
-            <div key={user.id}>
-              <h3>{user.name.first}</h3>
+        <form onSubmit={this.handleSubmit}>
+          <input type="submit" value="load users" />
+        </form>
+        <hr />
+        {! loading
+          ? users.map(user => 
+            <div key={user.id.value}>
+              <h3 style={{ color: 'orange' }}>{user.name.first}</h3>
               <p>{user.email}</p>
               <hr />
-              <form onSubmit={this.handleSubmit}>
-                <input type="submit" value="load users" />
-              </form>
             </div>
           ) : <Loading message = "Loading, please wait."/>}
           </div>
